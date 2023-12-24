@@ -15,11 +15,18 @@ export default function App() {
   React.useEffect(() => {
     const loadFromStorage = async () => {
       try {
-        const isOnboardingCompleted = await AsyncStorage.getItem('isOnboardingCompleted') || false;
-        setState({
-          isLoading: false,
-          isOnboardingCompleted: isOnboardingCompleted,
-        });
+        const isOnboardingCompleted = await AsyncStorage.getItem('isOnboardingCompleted');
+        if(isOnboardingCompleted){
+          setState({
+            isLoading: false,
+            isOnboardingCompleted: JSON.parse(isOnboardingCompleted),
+          });
+        }else{
+          setState({
+            isLoading: false,
+            isOnboardingCompleted: false,
+          });
+        }
       } catch (error) {
         console.error('Error loading from AsyncStorage:', error);
       }

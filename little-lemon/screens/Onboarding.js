@@ -91,6 +91,8 @@ const styles = StyleSheet.create({
         borderWidth:3,
         borderRadius:8,
         borderColor:colors.primary2,
+        paddingLeft:10,
+        fontSize:20,
     },
     bottomContainer:{
         flex:0.15,
