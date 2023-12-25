@@ -43,10 +43,10 @@ export default function Onboarding({navigation}){
             </View>
             <View style={styles.bottomContainer}>
                 <Pressable disabled = {disabled} style={{...styles.button, ...(disabled?styles.buttonDisabled:styles.buttonEnabled)}} onPress={()=>{
-                    AsyncStorage.setItem('isOnboardingCompleted', true)
+                    AsyncStorage.setItem('isOnboardingCompleted', JSON.stringify(true))
                     AsyncStorage.setItem('firstName', firstName)
                     AsyncStorage.setItem('email', email)
-                    navigation.navigate('Profile')}
+                    navigation.navigate('Home')}
                     }>
                     
                     <Text style={styles.titleText}>Next</Text>

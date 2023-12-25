@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Profile from './screens/Profile';
 import logo from './assets/Logo.png'
+import Home from './screens/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ export default function App() {
     const loadFromStorage = async () => {
       try {
         const isOnboardingCompleted = await AsyncStorage.getItem('isOnboardingCompleted');
+        console.log(isOnboardingCompleted+")");
         if(isOnboardingCompleted){
           setState({
             isLoading: false,
@@ -39,24 +41,19 @@ export default function App() {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={state.isOnboardingCompleted?"Profile":"Onboarding"}
+      <Stack.Navigator initialRouteName={state.isOnboardingCompleted?"Home":"Onboarding"}
       screenOptions={{
         headerShown: false
       }}>
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Onboarding" component={Onboarding} />
+        <Stack.Screen name="Home" component={Home}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-function HomeScreen() {
-  return (
-   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-     <Text>Home Screen</Text>
-   </View>
-   );
- }
+
 
  function SplashScreen(){
   return (

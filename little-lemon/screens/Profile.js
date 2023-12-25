@@ -8,7 +8,7 @@ import logo from '../assets/Logo.png';
 
 
 export default function Profile(props) {
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState('');
     const [firstName, setFirstName] = useState('');
     const [email, setEmail] = useState('');
     const [lastName, setLastName] = useState('')
@@ -40,7 +40,6 @@ export default function Profile(props) {
         });
     }
     const discardChanges = async()=>{
-        console.log('discarding changes')
         setImage('');
         setFirstName('');
         setLastName('');
@@ -101,7 +100,6 @@ export default function Profile(props) {
         }
     };
     const saveChanges = async () => {
-        console.log('saving...')
         AsyncStorage.setItem('image', image);
         AsyncStorage.setItem('firstName', firstName);
         AsyncStorage.setItem('email', email);
@@ -199,7 +197,12 @@ export default function Profile(props) {
                         <Text style={styles.checkboxLabel}>Newsletter</Text>
                     </View>
 
-                    <Pressable style={{borderWidth:1, borderColor:colors.primary1Shade, alignSelf:'center', backgroundColor:colors.primary1, width:'100%', margin:10, borderRadius:8, alignItems:"center", justifyContent:'center', marginTop:20}} onPress={()=>{logout()}}>
+                    <Pressable style={{borderWidth:1, borderColor:colors.primary1Shade, alignSelf:'center', backgroundColor:colors.primary1, width:'100%', margin:10, borderRadius:8, alignItems:"center", justifyContent:'center', marginTop:20}} 
+                    onPress={()=>{
+                        logout();
+                        AsyncStorage.setItem('isOnboardingCompleted', 'false');
+                        props.navigation.navigate('Onboarding');
+                        }}>
                         <Text style={{margin:8, fontSize:20, fontWeight:"bold"}}>Log Out</Text>
                     </Pressable>
 
@@ -207,7 +210,10 @@ export default function Profile(props) {
                         <Pressable style={{borderWidth:2, borderColor:colors.primary2, width:'40%', margin:5, borderRadius:8, alignItems:"center", justifyContent:'center'}} onPress={()=>{discardChanges()}}>
                             <Text style={{color:colors.primary2, marginHorizontal:8, marginVertical:10, fontSize:15, fontWeight:'bold'}}>Discard changes</Text>
                         </Pressable>
-                        <Pressable style={{backgroundColor:colors.primary2, width:'40%', margin:5, borderRadius:8, alignItems:"center", justifyContent:'center'}} onPress={()=>{saveChanges()}}>
+                        <Pressable style={{backgroundColor:colors.primary2, width:'40%', margin:5, borderRadius:8, alignItems:"center", justifyContent:'center'}} onPress={()=>{
+                            saveChanges();
+                            props.navigation.navigate('Home');
+                            }}>
                             <Text style={{color:'white', marginHorizontal:8, marginVertical:10, fontSize:15, fontWeight:"bold"}}>Save Changes</Text>
                         </Pressable>
                     </View>
